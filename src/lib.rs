@@ -115,8 +115,8 @@ impl Vector2f {
     /// Calculates the cross product between this vector and rhs by setting the Z components to 0
     /// and returns the magnitude of the resulting vector
     #[inline]
-    pub fn cross(lhs: Self, rhs: Self) -> f32 {
-        let prod = lhs * rhs.yx();
+    pub fn cross(self, rhs: Self) -> f32 {
+        let prod = self * rhs.yx();
         prod.0[0] - prod.0[1]
     }
 }
@@ -174,6 +174,12 @@ impl Vector3f {
     #[inline]
     pub const fn from_array(array: [f32; 3]) -> Self {
         Self(f32x4::from_array([array[0], array[1], array[2], 0.0]))
+    }
+
+    /// Creates a new vector from the given 2-component vector
+    #[inline]
+    pub const fn from_v2f(v: v2f, z: f32) -> Self {
+        Self(f32x4::from_array([v.x(), v.y(), z, 0.0]))
     }
 
     /// Converts the vector into an array
@@ -282,6 +288,18 @@ impl Vector4f {
     #[inline]
     pub const fn from_array(array: [f32; 4]) -> Self {
         Self(f32x4::from_array(array))
+    }
+
+    /// Creates a new vector from the given 2-component vector
+    #[inline]
+    pub const fn from_v2f(v: v2f, z: f32, w: f32) -> Self {
+        Self(f32x4::from_array([v.x(), v.y(), z, w]))
+    }
+
+    /// Creates a new vector from the given 3-component vector
+    #[inline]
+    pub const fn from_v3f(v: v3f, w: f32) -> Self {
+        Self(f32x4::from_array([v.x(), v.y(), v.z(), w]))
     }
 
     /// Converts the vector into an array
@@ -537,6 +555,12 @@ impl Vector3i {
         Self(i32x4::from_array([array[0], array[1], array[2], 0]))
     }
 
+    /// Creates a new vector from the given 2-component vector
+    #[inline]
+    pub const fn from_v2i(v: v2i, z: i32) -> Self {
+        Self(i32x4::from_array([v.x(), v.y(), z, 0]))
+    }
+
     /// Converts the vector into an array
     #[inline]
     pub const fn to_array(&self) -> [i32; 3] {
@@ -626,6 +650,18 @@ impl Vector4i {
     #[inline]
     pub const fn from_array(array: [i32; 4]) -> Self {
         Self(i32x4::from_array(array))
+    }
+
+    /// Creates a new vector from the given 2-component vector
+    #[inline]
+    pub const fn from_v2i(v: v2i, z: i32, w: i32) -> Self {
+        Self(i32x4::from_array([v.x(), v.y(), z, w]))
+    }
+
+    /// Creates a new vector from the given 3-component vector
+    #[inline]
+    pub const fn from_v3i(v: v3i, w: i32) -> Self {
+        Self(i32x4::from_array([v.x(), v.y(), v.z(), w]))
     }
 
     /// Converts the vector into an array
